@@ -1,36 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Anomaly Detection</title>
-</head>
-<body>
-    <h1 style="font-family: fantasy;">&#9992; Anomaly Detector &#9992;</h1>
-    <form action="/search" method="post" enctype="multipart/form-data" name="searchForm" target="result">
-        <table>
-            <tr>
-                <td>Please choose one:</td>
-                <td><input type="radio" id="Hybrid Algorithm" name="algorithm_type" value="Hybrid Algorithm">
-                <label for="Hybrid Algorithm">Hybrid Algorithm</label>
-                </td>
-                <td>
-                <input type="radio" id="Regression Algorithm" name="algorithm_type" value="Regression Algorithm">
-                <label for="Regression Algorithm">Regression Algorithm</label><br>
-                </td> 
-            </tr>
-            <tr>
-                <td>Normal File</td>
-                <td><input type="file" name="normal_file"></td>
-            </tr>
-            <tr>
-                <td>Anomaly File</td>
-                <td><input type="file" name="anomaly_file"></td>
-            </tr>
-            <br>
-        </table>
-        <input type="submit" value="Submit">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Anomaly Detector</title>
+  </head>
+  <body>
+    <h1 style="font-family: fantasy">&#9992; Anomaly Detector &#9992;</h1>
+    <!-- Collect user input with form -->
+    <form onsubmit="myFunction()"
+      action="/detect"
+      method="post"
+      enctype="multipart/form-data"
+      name="detectForm"
+      target="result"
+    >
+      <table>
+        <tr>
+          <td>Please choose one:</td>
+          <td>
+            <input
+              type="radio"
+              id="Hybrid Algorithm"
+              name="algorithm_type"
+              value="Hybrid Algorithm"
+            />
+            <label for="Hybrid Algorithm">Hybrid Algorithm</label>
+          </td>
+          <td>
+            <input
+              type="radio"
+              id="Regression Algorithm"
+              name="algorithm_type"
+              value="Regression Algorithm"
+            />
+            <label for="Regression Algorithm">Regression Algorithm</label><br />
+          </td>
+        </tr>
+        <tr>
+          <td>Normal File</td>
+          <td><input type="file" name="normal_file" /></td>
+        </tr>
+        <tr>
+          <td>Anomaly File</td>
+          <td><input type="file" name="anomaly_file" /></td>
+        </tr>
+        <br />
+      </table>
+      <input type="submit" value="Submit">
     </form>
-    <br>
+    <script>
+        
+        function myFunction() {
+          alert("The form was submitted");
+        }
+    </script>
+    <br />
     <iframe name="result" width="80%" height="500"></iframe>
-</body>
+  </body>
 </html>
