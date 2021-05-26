@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 })
 
 
-
+//check changes.
 /* POST requests */
 app.post('/detect', (req, res) => {
     // res.write('printing ' + req.body.normal_file);
