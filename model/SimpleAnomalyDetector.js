@@ -139,7 +139,7 @@ module.exports = {
 }
 
 
-
+/*
 let ts = new TimeSeries('train.csv');
 let ts2 = new TimeSeries('test.csv');
 let ad = new SimpleAnomalyDetector();
@@ -156,3 +156,4 @@ console.log("anomalys Features:");
 for (r of res) {
     console.log(r.desc + '\t' + r.time);
 }
+*/
