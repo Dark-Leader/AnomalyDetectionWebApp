@@ -143,7 +143,7 @@ module.exports = {
 let ts = new TimeSeries('train.csv');
 let ts2 = new TimeSeries('test.csv');
 let ad = new SimpleAnomalyDetector();
-let hybrid = false;
+let hybrid = true;
 ad.learnNormal(ts, hybrid);
 console.log("Correlated Features:");
 for (let c of ad.cf) {
@@ -156,5 +156,3 @@ console.log("anomalys Features:");
 for (r of res) {
     console.log(r.desc + '\t' + r.time);
 }
-
-
