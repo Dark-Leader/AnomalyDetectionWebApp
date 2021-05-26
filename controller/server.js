@@ -25,6 +25,9 @@ function detectCommand(req, res) {
     res.end();
 }
 
+
+///////THIS SECTION DOES NOT RELATE TO EXPRESS - begin///////
+
 //creating map - using Command Design Pattern
 let commands = new Map()
 commands.set('/', displayFormCommand)
@@ -37,6 +40,8 @@ const server = http.createServer((req, res) => {
     else
         res.write("Invalid request")
 })
+
+///////THIS SECTION DOES NOT RELATE TO EXPRESS - end///////
 
 //start server at port 8080
 server.listen(8080, () => console.log("server listening on port 8080"))
