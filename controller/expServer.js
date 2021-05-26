@@ -1,56 +1,54 @@
-const express = require('express'); //returned a function
-const fileUpload = require('express-fileupload');
-const app = express(); //the function returnes a function of type Express. this represents our application
-app.use(express.json()); //enable json parsing. a middle-ware is been returned to 'use'.
-app.use(express.static('../view')); //now 'view' is the root direc.
-app.use(express.urlencoded); //now url encoded
-//require the model files here!!
+const express =require('express')
+const fileUpload= require('express-fileupload')
+const model= require('../model/check.js')
 
 
+const app=express()
+app.use(express.urlencoded({
+    extended:false
+}))
 
-/* GET requests */
-//send to user the html 
-app.get('/', (req, res) => {   
-    res.sendFile("./index.html");
+
+app.use(fileUpload())
+
+app.use(express.static('../view'))
+
+app.get("/",(req,res)=>{
+res.sendFile("./index.html")
 })
+app.post("/detect",(req,res)=>{
+res.write('searching for ' +  req.body.algorithm_type +':\n' )
+var type_algo =  req.body.algorithm_type
+console.log(type_algo)
+if(req.files){
+    var file =req.files.normal_file
+    var result= file.data.toString()
+    
+    var file2 =req.files.anomaly_file
+    var result2= file2.data.toString()
 
+    res.write(result)
+    res.write(result2)
 
-//check changes.
-/* POST requests */
-app.post('/detect', (req, res) => {
-    // res.write('printing ' + req.body.normal_file);
-    if(req.files){
-        //var file = req.body.normal_file; //file obj.
-        var string = toString(file.data); //content as string
-        
-    }
-})
-
-
-
-// temp JSON data
-var anomalies = { aileron: "[0-10]", rudder: "[15-16]", slats: "[800-900, 940-942]" };
-
-
-/**
- * detectCommand function. returns the anomalies as JSON
-
- * @param {*} req - the req object, represents user request
- * @param {*} res - the res object, represents our response to user
- */
-function detectCommand(req, res) {
-    let result = 'the anomalies are:\n';
-    res.write(result);
-    res.write(JSON.stringify(anomalies));
-    res.end();
 }
+res.end()
 
-
-
-
-
-
-// logging are for test
-app.listen(8080, () => {
-    console.log('Listening on port 8080...');
 })
+
+
+app.listen(8080)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
