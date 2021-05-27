@@ -42,9 +42,8 @@ app.get("/", (req, res) => {
 /* POST */
 
 app.post("/detect", (req, res) => {
-    res.write('searching for ' + req.body.algorithm_type + ':\n')
     let type_algo = req.body.algorithm_type;
-    let invalid_input = "Invalid input.\nPlease choose an algorithm type, normal csv file, and test csv file.\n";
+    let invalid_input = "Invalid input.\nPlease choose an algorithm type, normal csv file and test csv file.\n";
     if (req.files) {
         var file = req.files.normal_file;
         if (file == null) {
@@ -86,7 +85,7 @@ app.post("/detect", (req, res) => {
             }
             detector.learnNormal(ts1, mode);
             let reports = detector.detect(ts2, mode);
-            res.write(reports);
+            res.send('Searching for ' + type_algo + ':\nResults are:\n' + reports);
         } catch (e) {
             res.write(invalid_input);
             res.end();
