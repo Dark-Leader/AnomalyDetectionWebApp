@@ -43,85 +43,63 @@ app.get("/", (req, res) => {
 
 app.post("/detect", (req, res) => {
     res.write('searching for ' + req.body.algorithm_type + ':\n')
-    var type_algo = req.body.algorithm_type
+    let type_algo = req.body.algorithm_type;
+    let invalid_input = "Invalid input.\nPlease choose an algorithm type, normal csv file, and test csv file.\n";
     if (req.files) {
         var file = req.files.normal_file;
+        if (file == null) {
+            res.write(invalid_input);
+            res.end();
+            return;
+        }
         var result = file.data.toString();
         fs.writeFileSync('../model/train.csv', result, function (err) { // created train.csv
             if (err) {
                 return console.error(err);
             }
         });
-        var file2 = req.files.anomaly_file
-        var result2 = file2.data.toString()
+        let file2 = req.files.anomaly_file;
+        if (file2 == null) {
+            res.write(invalid_input);
+            res.end();
+            return;
+        }
+        let result2 = file2.data.toString()
         fs.writeFileSync('../model/test.csv', result2, function (err) { // created test.csv
             if (err) {
                 return console.error(err);
             }
         });
         let detector = new SimpleAnomalyDetector(); // created detector
-        let ts1 = new TimeSeries("../model/train.csv");
-        let ts2 = new TimeSeries("../model/test.csv");
-        let mode = false;
-        if (type_algo == "Hybrid Algorithm") {
-            mode = true;
-        }
-        detector.learnNormal(ts1, mode);
-        let reports = detector.detect(ts2, mode);
-        for (let report of reports) {
-            res.write(report.desc + '\t' + report.time + "\n");
-        }
-    }
-    res.end()
-
-})
-
-
-app.post("/", (req, res) => {
-    //res.write('searching for ' + req.body.algorithm_type + ':\n')
-    var type_algo = req.body.algorithm_type
-    if (req.files) {
-        var file = req.files.normal_file;
-        var result = file.data.toString();
-        fs.writeFileSync('../model/train.csv', result, function (err) { // created train.csv locally
-            if (err) {
-                return console.error(err);
+        try{
+            let ts1 = new TimeSeries("../model/train.csv");
+            let ts2 = new TimeSeries("../model/test.csv");
+            let mode = false;
+            if (type_algo == "Hybrid Algorithm") {
+                mode = true;
+            } else if (type_algo == "Regression Algorithm") {
+                mode = false;
+            } else {
+                res.write(invalid_input);
+                res.end();
+                return;
             }
-        });
-        var file2 = req.files.anomaly_file
-        var result2 = file2.data.toString()
-        fs.writeFileSync('../model/test.csv', result2, function (err) { // created test.csv locally
-            if (err) {
-                return console.error(err);
-            }
-        });
-        let detector = new SimpleAnomalyDetector(); // created detector
-        let ts1 = new TimeSeries("../model/train.csv");
-        let ts2 = new TimeSeries("../model/test.csv");
-        let mode = false;
-        if (type_algo == "Hybrid Algorithm") {
-            mode = true;
+            detector.learnNormal(ts1, mode);
+            let reports = detector.detect(ts2, mode);
+            res.write(reports);
+        } catch (e) {
+            res.write(invalid_input);
+            res.end();
+            return;
         }
-        detector.learnNormal(ts1, mode);
-        let reports = detector.detect(ts2, mode);
-        for (let report of reports) {
-            //noam:
-            const anomaly = {
-                desc: report.desc, time: report.time,
-            };
-            anomalies.push(anomaly);
-            //noam~
-        }
-        //noam:
-
-        //res.send(JSON.stringify(anomalies));
-        res.send(anomalies);
-        //res.json(JSON.stringify(anomalies));
-        //res.write(JSON.stringify(anomalies));
-        //noam~
     }
     res.end();
 
+})
+
+app.post("/", (req, res) => {
+    res.redirect(307, '/detect');
+    res.end();
 })
 
 

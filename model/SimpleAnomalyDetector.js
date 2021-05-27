@@ -115,6 +115,14 @@ class SimpleAnomalyDetector {
         return (c.correlation >= this.threshold && this.regularAnomalus(x,y,c)) || (mode && c.correlation > 0.5 && c.correlation < 0.9 && distance(new Point(c.x, c.y), new Point(x,y)) > c.threshold);
     }
 
+    strMapToObj(strMap) {
+        let obj = Object.create(null);
+        for (let [k,v] of strMap) {
+          obj[k] = v;
+        }
+        return obj;
+    }
+
     detect(ts, mode) {
         let anomalys = [];
         if (this.cf.length == 0) {
@@ -129,7 +137,16 @@ class SimpleAnomalyDetector {
                 }
             }
         }
-        return anomalys;
+        let dict = new Map();
+        for (let anomaly of anomalys) {
+            if (dict.has(anomaly.desc)) {
+                dict.get(anomaly.desc).push(anomaly.time);
+            } else {
+                dict.set(anomaly.desc, [anomaly.time]);
+            }
+        }
+        let result = JSON.stringify(this.strMapToObj(dict));
+        return result;
     }
 }
 
@@ -149,10 +166,5 @@ for (let c of ad.cf) {
     console.log(c.feature1 + "-" + c.feature2);
 }
 let res = ad.detect(ts2, hybrid);
-
-console.log();
-console.log("anomalys Features:");
-for (r of res) {
-    console.log(r.desc + '\t' + r.time);
-}
+console.log(res);
 */
