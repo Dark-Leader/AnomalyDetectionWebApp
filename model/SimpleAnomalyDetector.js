@@ -116,7 +116,6 @@ class SimpleAnomalyDetector {
     }
 
     detect(ts, mode) {
-        let data = ts.getData();
         let anomalys = [];
         if (this.cf.length == 0) {
             return anomalys;

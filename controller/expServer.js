@@ -77,21 +77,20 @@ app.post("/detect", (req, res) => {
 })
 
 
-//noam
 app.post("/", (req, res) => {
-    res.write('searching for ' + req.body.algorithm_type + ':\n')
+    //res.write('searching for ' + req.body.algorithm_type + ':\n')
     var type_algo = req.body.algorithm_type
     if (req.files) {
         var file = req.files.normal_file;
         var result = file.data.toString();
-        fs.writeFileSync('../model/train.csv', result, function (err) { // created train.csv
+        fs.writeFileSync('../model/train.csv', result, function (err) { // created train.csv locally
             if (err) {
                 return console.error(err);
             }
         });
         var file2 = req.files.anomaly_file
         var result2 = file2.data.toString()
-        fs.writeFileSync('../model/test.csv', result2, function (err) { // created test.csv
+        fs.writeFileSync('../model/test.csv', result2, function (err) { // created test.csv locally
             if (err) {
                 return console.error(err);
             }
@@ -110,16 +109,18 @@ app.post("/", (req, res) => {
             const anomaly = {
                 desc: report.desc, time: report.time,
             };
-            //console.log(anomaly);
             anomalies.push(anomaly);
             //noam~
-            //res.write(report.desc + '\t' + report.time + "\n");
         }
         //noam:
-        res.write(JSON.stringify(anomalies));
+
+        //res.send(JSON.stringify(anomalies));
+        res.send(anomalies);
+        //res.json(JSON.stringify(anomalies));
+        //res.write(JSON.stringify(anomalies));
         //noam~
     }
-    res.end()
+    res.end();
 
 })
 
