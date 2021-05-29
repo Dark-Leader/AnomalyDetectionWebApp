@@ -1,5 +1,5 @@
 # Anomaly-WebAPP
-** Anomaly-Web App **
+**Anomaly-Web App**
 
 Creators: Lola Sirota, Noam Salomon, Sam Katz, Amit Ben Shimon
 
