@@ -24,7 +24,6 @@ Creators: Lola Sirota, Noam Salomon, Sam Katz, Amit Ben Shimon
 
 
 **How To Use:**
-**For More Information:**
 There two different ways to connect:
 1.	Connect your local browser(preferably chrome, though is not necessary).
 Type: http://localhost:8080/ ,  after which you choose between two algorithms(hybrid and anomaly). Following that user chooses train and test file respectively.
@@ -32,5 +31,5 @@ And then click submit, and the result would be shown on the screen.
 2.	Connect via any programming language. We have created an example via python, namely you can get a Json file which contains the anomaly detections(given that you enter two files, and a string which would represent the type of algorithm that you want).                                                                          The line to execute the code: py  req.py.                                                                                               certainly you can use other languages as well, the above-mentioned  is a pure example.
 
 
-
-For More Information: Please watch our short premiere for our app at Youtube :
+**For More Information:**
+Please watch our short premiere for our app at Youtube :
