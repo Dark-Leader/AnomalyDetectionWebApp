@@ -24,7 +24,8 @@ Creators: Lola Sirota, Noam Salomon, Sam Katz, Amit Ben Shimon
 
 
 **How To Use:**
-There two different ways to connect:
+
+There are two different ways to connect:
 1.	Connect your local browser(preferably chrome, though is not necessary).
 Type: http://localhost:8080/ ,  after which you choose between two algorithms(hybrid and anomaly). Following that user chooses train and test file respectively.
 And then click submit, and the result would be shown on the screen.
@@ -32,4 +33,5 @@ And then click submit, and the result would be shown on the screen.
 
 
 **For More Information:**
+
 Please watch our short premiere for our app at Youtube :
