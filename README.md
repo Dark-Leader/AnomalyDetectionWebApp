@@ -5,21 +5,21 @@ Creators: Lola Sirota, Noam Salomon, Sam Katz, Amit Ben Shimon
 
 **Main Project Features:**
 1.	Two different algorithms for anomaly detection.
-2.	Display data regarding anomaly detections using browser or any programming language. The user is able to choose freely between both algorithms(Hybrid, Linear).
+2.	Display data regarding anomaly detections using browser or any programming language. The user is able to choose freely between both algorithms(Hybrid, Linear Regression).
 3.	Python code which can connect directly to the server,and in turn present a json file which contains the anomaly detections.
 
 
 **Project Structure:**
-- All view related object are inside the View Folder.
-- All viewModel related objects are inside the viewModel Folder.
-- All Model related objects are inside the Model Folder.
+- All view related object are inside the view Folder.
+- All controller related objects are inside the controller Folder.
+- All Model related objects are inside the model Folder.
 
 
 **Requirements:**
 - Any framework which is able to run javascript for example vs code.
 - Node js version: 14.17.0 LTS(lower version might also be compatible)
-- python version 3 
-- express  library
+- python version 3 (for the example req.py file provided inside the model folder) - in addition the requests module in python
+- express library
 - express file upload library
 
 
