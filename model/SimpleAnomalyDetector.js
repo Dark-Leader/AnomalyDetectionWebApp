@@ -145,6 +145,7 @@ class SimpleAnomalyDetector {
                 dict.set(anomaly.desc, [anomaly.time]);
             }
         }
+        console.log(dict);
         return JSON.stringify(this.strMapToObj(dict));
     }
 }
@@ -156,6 +157,10 @@ module.exports = {
 
 /*
 let ts = new TimeSeries('train.csv');
+for (let key of ts.getAttributes()) {
+    console.log(key);
+    console.log(ts.table[key]);
+}
 let ts2 = new TimeSeries('test.csv');
 let ad = new SimpleAnomalyDetector();
 let hybrid = true;

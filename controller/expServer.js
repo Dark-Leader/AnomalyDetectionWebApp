@@ -20,7 +20,8 @@ const { AnomalyReport } = require('../model/AnomalyDetector')
  */
 
 //anomalies array of json objs. returned to client after client's post
-const anomalies = []; 
+const anomalies = [];
+let redirected = false; 
 
 
 const app = express()
@@ -85,7 +86,13 @@ app.post("/detect", (req, res) => {
             }
             detector.learnNormal(ts1, mode);
             let reports = detector.detect(ts2, mode);
-            res.send('Searching for ' + type_algo + ':\nResults are:\n' + reports);
+            if (redirected) {
+                res.write(reports);
+                res.end();
+                redirected = false;
+                return;
+            }
+            res.write('Searching for ' + type_algo + ':\nResults are:\n' + reports);
         } catch (e) {
             res.write(invalid_input);
             res.end();
@@ -97,6 +104,7 @@ app.post("/detect", (req, res) => {
 })
 
 app.post("/", (req, res) => {
+    redirected = true;
     res.redirect(307, '/detect');
     res.end();
 })

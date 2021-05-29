@@ -24,11 +24,21 @@ class TimeSeries {
                 'use strict';
                 let x = 0;
                 for (const [key, value] of Object.entries(dict)) {
-                    dict[key].push(parseFloat(values[x++]));
+                    let value = parseFloat(values[x++]);
+                    if (isNaN(value)) {
+                        throw "not number";
+                    }
+                    dict[key].push(value);
                 }
             }
         }
         this.dataSize = dict[this.atts[0]].length;
+        if (this.atts.length == 0) {
+            throw "empty file";
+        }
+        if (this.dataSize == 0) {
+            throw "empty file";
+        }
         return dict;
     }
 
