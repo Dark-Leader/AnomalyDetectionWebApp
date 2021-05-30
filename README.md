@@ -48,3 +48,7 @@ certainly you can use other languages as well, the above-mentioned is a pure exa
 
 Please watch our short premiere for our app at Youtube : https://youtu.be/9eEkGEUp80I
 
+
+in addition, we provide you with 2 example csv files inside the model folder - one file is a train file, the other is to check for anomalies on.
+all csv files provided must contain titles for all columns, and there must not be any duplicates in said titles.
+
