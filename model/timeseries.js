@@ -37,36 +37,49 @@ class TimeSeries {
                 'use strict';
                 let x = 0;
                 for (const [key, value] of Object.entries(dict)) { // iterate over map
-                    let value = parseFloat(values[x++]); // add value to array correlated
-                    if (isNaN(value)) {
+                    let value = parseFloat(values[x++]);
+                    if (isNaN(value)) { // invalid input
                         throw "not number";
                     }
-                    dict[key].push(value);
+                    dict[key].push(value); // add value to array correlated to key in map
                 }
             }
         }
         
-        if (this.atts.length == 0) {
+        if (this.atts.length == 0) { // empty file
             throw "empty file";
         }
-        if (this.dataSize == 0) {
+        if (this.dataSize == 0) { // empty file
             throw "empty file";
         }
         return dict;
     }
-
+    /**
+    * returns array of attributes
+    * @returns array(string)
+    */
     getAttributes() {
         return this.atts;
     }
-
+    /**
+     * returns number of rows in table
+     * @returns int
+     */
     getRowSize() {
         return this.dataSize;
     }
-
+    /**
+     * returns map containing csv file data
+     * @returns map(string, array(float))
+     */
     getData() {
         return this.table;
     }
-
+    /**
+     * returns array(float) of said attribute in map
+     * @param {string} attribute 
+     * @returns array(float)
+     */
     getAttData(attribute) {
         return this.table[attribute];
     }

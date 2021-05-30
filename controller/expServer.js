@@ -1,6 +1,6 @@
 const express = require('express')
 const fileUpload = require('express-fileupload')
-const model = require('../model/check.js')
+//const model = require('../model/check.js')
 const fs = require('fs')
 const { TimeSeries } = require('../model/timeseries')
 const { SimpleAnomalyDetector, correlatedFeatures } = require('../model/SimpleAnomalyDetector')
