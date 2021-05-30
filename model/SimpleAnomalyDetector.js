@@ -160,22 +160,3 @@ class SimpleAnomalyDetector {
 module.exports = {
     SimpleAnomalyDetector, correlatedFeatures
 }
-
-
-/*
-let ts = new TimeSeries('train.csv');
-for (let key of ts.getAttributes()) {
-    console.log(key);
-    console.log(ts.table[key]);
-}
-let ts2 = new TimeSeries('test.csv');
-let ad = new SimpleAnomalyDetector();
-let hybrid = true;
-ad.learnNormal(ts, hybrid);
-console.log("Correlated Features:");
-for (let c of ad.cf) {
-    console.log(c.feature1 + "-" + c.feature2);
-}
-let res = ad.detect(ts2, hybrid);
-console.log(res);
-*/

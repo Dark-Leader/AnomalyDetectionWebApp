@@ -21,7 +21,6 @@ const { AnomalyReport } = require('../model/AnomalyDetector')
 
 //anomalies array of json objs. returned to client after client's post
 const anomalies = [];
-let redirected = false; 
 
 
 const app = express()
@@ -49,7 +48,6 @@ function detect(req, res) {
     if (req.files) {
         var file = req.files.normal_file;
         if (file == null) {
-            redirected = false;
             res.write(invalid_input);
             res.end();
             return;
@@ -57,13 +55,11 @@ function detect(req, res) {
         var result = file.data.toString();
         fs.writeFileSync('../model/train.csv', result, function (err) { // created train.csv
             if (err) {
-                redirected = false;
                 return console.error(err);
             }
         });
         let file2 = req.files.anomaly_file;
         if (file2 == null) {
-            redirected = false;
             res.write(invalid_input);
             res.end();
             return;
@@ -71,7 +67,6 @@ function detect(req, res) {
         let result2 = file2.data.toString()
         fs.writeFileSync('../model/test.csv', result2, function (err) { // created test.csv
             if (err) {
-                redirected = false;
                 return console.error(err);
             }
         });
@@ -85,7 +80,6 @@ function detect(req, res) {
             } else if (type_algo == "Regression Algorithm") {
                 mode = false;
             } else {
-                redirected = false;
                 res.write(invalid_input);
                 res.end();
                 return;
@@ -93,7 +87,6 @@ function detect(req, res) {
             detector.learnNormal(ts1, mode);
             reports = detector.detect(ts2, mode);
         } catch (e) {
-            redirected = false;
             res.write(invalid_input);
             res.end();
             return;
@@ -126,7 +119,6 @@ app.post("/detect", (req, res) => {
 })
 
 app.post("/", (req, res) => {
-    redirected = true;
     res.redirect(307, '/detect');
     res.end();
 })
