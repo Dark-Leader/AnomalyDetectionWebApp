@@ -38,4 +38,4 @@ And then click submit, and the result would be shown on the screen.
 
 **For More Information:**
 
-Please watch our short premiere for our app at Youtube :
+Please watch our short premiere for our app at Youtube : https://youtu.be/9eEkGEUp80I
