@@ -42,7 +42,8 @@ app.get("/", (req, res) => {
 
 /* POST */
 
-app.post("/detect", (req, res) => {
+function detect(req, res) {
+    let reports = null;
     let type_algo = req.body.algorithm_type;
     let invalid_input = "Invalid input.\nPlease choose an algorithm type, normal csv file and test csv file.\n";
     if (req.files) {
@@ -90,14 +91,7 @@ app.post("/detect", (req, res) => {
                 return;
             }
             detector.learnNormal(ts1, mode);
-            let reports = detector.detect(ts2, mode);
-            if (redirected) {
-                res.write(reports);
-                res.end();
-                redirected = false;
-                return;
-            }
-            res.write('Searching for ' + type_algo + ':\nResults are:\n' + reports);
+            reports = detector.detect(ts2, mode);
         } catch (e) {
             redirected = false;
             res.write(invalid_input);
@@ -105,8 +99,30 @@ app.post("/detect", (req, res) => {
             return;
         }
     }
-    res.end();
+    return reports;
+}
+app.post("/detectUI", (req,res) =>{
+    const reports = detect(req,res);
+    if(reports){
+        let anomalies = [];
+        var temp = JSON.parse(reports);
 
+        var keys = Object.keys(temp);
+        anomalies.push('The following anomalies were found: </br>');
+        for (var i = 0; i < keys.length; i++) {
+            anomalies.push('In feautures: ' + keys[i] + ', at timesteps: ' + temp[keys[i]] + '</br>');
+        }
+        res.status(200).send(anomalies.join(''));
+        res.end();
+    }
+})
+
+app.post("/detect", (req, res) => {
+    const reports = detect(req,res);
+    if(reports){
+        res.write(reports);
+        res.end();
+    }
 })
 
 app.post("/", (req, res) => {
