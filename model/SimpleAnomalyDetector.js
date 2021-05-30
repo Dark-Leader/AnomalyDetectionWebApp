@@ -145,8 +145,15 @@ class SimpleAnomalyDetector {
                 dict.set(anomaly.desc, [anomaly.time]);
             }
         }
-        console.log(dict);
-        return JSON.stringify(this.strMapToObj(dict));
+
+        let obj = {};
+
+        dict.forEach(function(value, key){
+        obj[key] = value
+        });
+        console.log(obj);
+        //console.log(JSON.stringify(obj));
+        return JSON.stringify(obj);
     }
 }
 

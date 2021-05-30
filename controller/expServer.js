@@ -48,6 +48,7 @@ app.post("/detect", (req, res) => {
     if (req.files) {
         var file = req.files.normal_file;
         if (file == null) {
+            redirected = false;
             res.write(invalid_input);
             res.end();
             return;
@@ -55,11 +56,13 @@ app.post("/detect", (req, res) => {
         var result = file.data.toString();
         fs.writeFileSync('../model/train.csv', result, function (err) { // created train.csv
             if (err) {
+                redirected = false;
                 return console.error(err);
             }
         });
         let file2 = req.files.anomaly_file;
         if (file2 == null) {
+            redirected = false;
             res.write(invalid_input);
             res.end();
             return;
@@ -67,6 +70,7 @@ app.post("/detect", (req, res) => {
         let result2 = file2.data.toString()
         fs.writeFileSync('../model/test.csv', result2, function (err) { // created test.csv
             if (err) {
+                redirected = false;
                 return console.error(err);
             }
         });
@@ -80,6 +84,7 @@ app.post("/detect", (req, res) => {
             } else if (type_algo == "Regression Algorithm") {
                 mode = false;
             } else {
+                redirected = false;
                 res.write(invalid_input);
                 res.end();
                 return;
@@ -94,6 +99,7 @@ app.post("/detect", (req, res) => {
             }
             res.write('Searching for ' + type_algo + ':\nResults are:\n' + reports);
         } catch (e) {
+            redirected = false;
             res.write(invalid_input);
             res.end();
             return;
