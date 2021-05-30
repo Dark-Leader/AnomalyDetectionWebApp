@@ -26,6 +26,7 @@ Creators: Lola Sirota, Noam Salomon, Sam Katz, Amit Ben Shimon
 **How To Use:**
 
 There are two different ways to connect:
+
 1.open the project and add the necessary requirements, after which you compile the code with next line:
 node expServer.js(before running the line, the user needs to make sure that he is in the control folder). 
  then, Connect to your local browser(preferably chrome, though is not necessary).
