@@ -21,6 +21,7 @@ Creators: Lola Sirota, Noam Salomon, Sam Katz, Amit Ben Shimon
 - python version 3 (for the example req.py file provided inside the model folder) - in addition the requests module in python
 - express library
 - express file upload library
+- smallest-enclosing-circle library
 
 
 **How To Use:**
